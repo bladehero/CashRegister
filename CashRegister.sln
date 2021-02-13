@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.Services", "Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.Interfaces", "CashRegister.Interfaces\CashRegister.Interfaces.csproj", "{3857C591-B9FF-46B7-82AD-18993A000175}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashRegister.Data", "CashRegister.Data\CashRegister.Data.csproj", "{2351C208-F448-4ED0-BAB5-6AE55AA948A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{3857C591-B9FF-46B7-82AD-18993A000175}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3857C591-B9FF-46B7-82AD-18993A000175}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3857C591-B9FF-46B7-82AD-18993A000175}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2351C208-F448-4ED0-BAB5-6AE55AA948A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2351C208-F448-4ED0-BAB5-6AE55AA948A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2351C208-F448-4ED0-BAB5-6AE55AA948A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2351C208-F448-4ED0-BAB5-6AE55AA948A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
