@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CashRegister.Models
+namespace CashRegister.Models.Domain
 {
     public class Product
     {
