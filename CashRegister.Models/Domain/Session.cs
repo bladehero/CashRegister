@@ -14,7 +14,7 @@ namespace CashRegister.Models.Domain
         public string UserName { get; set; }
         public decimal InitialBalance { get; set; }
         public DateTime Started { get; set; }
-        public DateTime Finished { get; set; }
+        public DateTime? Finished { get; set; }
 
         public IList<Order> Orders { get; set; }
     }
