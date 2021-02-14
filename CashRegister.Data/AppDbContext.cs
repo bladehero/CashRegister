@@ -1,10 +1,15 @@
+using System.Threading;
+using System.Threading.Tasks;
+using CashRegister.Interfaces;
 using CashRegister.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CashRegister.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext, IAppDbContext
     {
+        public string ConnectionString { get; set; }
+        
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -16,8 +21,18 @@ namespace CashRegister.Data
         {
         }
 
+        public AppDbContext(string connectionString)
+        {
+            ConnectionString = connectionString;
+        }
+
+        public AppDbContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlite(ConnectionString);
             base.OnConfiguring(optionsBuilder);
         }
 
