@@ -9,11 +9,20 @@ namespace CashRegister.WPF.ViewModels
     {
         private readonly IWindowManager _windowManager;
         private readonly LoginViewModel _loginViewModel;
+        private readonly SessionViewModel _sessionViewModel;
 
-        public ShellViewModel(IWindowManager windowManager, LoginViewModel loginViewModel)
+        public ShellViewModel(IWindowManager windowManager, LoginViewModel loginViewModel, SessionViewModel sessionViewModel)
         {
             _windowManager = windowManager;
             _loginViewModel = loginViewModel;
+            _sessionViewModel = sessionViewModel;
+        }
+
+        protected override async Task OnActivateAsync(CancellationToken cancellationToken)
+        {
+            _loginViewModel.Logged += () => ActivateItemAsync(_sessionViewModel, cancellationToken);
+            
+            await base.OnActivateAsync(cancellationToken);
         }
 
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)

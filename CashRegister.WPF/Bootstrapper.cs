@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 using Caliburn.Micro;
 using CashRegister.Data;
 using CashRegister.Interfaces;
