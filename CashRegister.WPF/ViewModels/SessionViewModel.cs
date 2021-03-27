@@ -10,8 +10,6 @@ namespace CashRegister.WPF.ViewModels
         public SessionViewModel(IAppDbContext dbContext)
         {
             _dbContext = dbContext;
-
-            _dbContext.Barcodes.Add(new Barcode() {Value = "123123123123"});
         }
     }
 }
