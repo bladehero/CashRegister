@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using Microsoft.Extensions.Configuration;
+using CashRegister.Interfaces;
 
 namespace CashRegister.WPF.ViewModels
 {
@@ -11,7 +11,9 @@ namespace CashRegister.WPF.ViewModels
         private readonly LoginViewModel _loginViewModel;
         private readonly SessionViewModel _sessionViewModel;
 
-        public ShellViewModel(IWindowManager windowManager, LoginViewModel loginViewModel, SessionViewModel sessionViewModel)
+        public ShellViewModel(IWindowManager windowManager,
+            LoginViewModel loginViewModel,
+            SessionViewModel sessionViewModel)
         {
             _windowManager = windowManager;
             _loginViewModel = loginViewModel;
@@ -21,7 +23,7 @@ namespace CashRegister.WPF.ViewModels
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
             _loginViewModel.Logged += () => ActivateItemAsync(_sessionViewModel, cancellationToken);
-            
+
             await base.OnActivateAsync(cancellationToken);
         }
 

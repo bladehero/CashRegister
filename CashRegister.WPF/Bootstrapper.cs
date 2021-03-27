@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using Caliburn.Micro;
 using CashRegister.Data;
 using CashRegister.Interfaces;
 using CashRegister.Services;
 using CashRegister.WPF.Extensions;
 using CashRegister.WPF.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace CashRegister.WPF
@@ -44,7 +45,10 @@ namespace CashRegister.WPF
             {
                 var configuration = x.GetInstance<IConfiguration>();
                 var connection = configuration.GetConnectionString("DefaultConnection");
-                var context = new AppDbContext(connection);
+                
+                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                var options = optionsBuilder.UseSqlite(connection).Options;
+                var context = new AppDbContext(options);
                 return context;
             });
 

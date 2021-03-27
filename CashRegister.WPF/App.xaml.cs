@@ -1,4 +1,6 @@
-﻿namespace CashRegister.WPF
+﻿using System.Diagnostics;
+
+namespace CashRegister.WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml
