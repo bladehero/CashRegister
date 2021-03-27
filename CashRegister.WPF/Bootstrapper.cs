@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using CashRegister.Data;
 using CashRegister.Interfaces;
 using CashRegister.Services;
+using CashRegister.WPF.Extensions;
 using CashRegister.WPF.ViewModels;
 using Microsoft.Extensions.Configuration;
 
@@ -52,7 +54,7 @@ namespace CashRegister.WPF
             _container.Singleton<IMapperProvider, DomainToServiceMapper>();
 
             #endregion
-
+            
             #region DI
 
             _container.Singleton<IWindowManager, WindowManager>();
@@ -60,7 +62,11 @@ namespace CashRegister.WPF
 
             #endregion
 
-            _container.PerRequest<ShellViewModel>();
+            #region ViewModels
+
+            _container.LoadViewModels(Assembly.GetExecutingAssembly());
+
+            #endregion
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
