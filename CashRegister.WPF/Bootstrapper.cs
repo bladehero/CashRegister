@@ -18,7 +18,6 @@ namespace CashRegister.WPF
     public class Bootstrapper : BootstrapperBase
     {
         private SimpleContainer _container;
-        private IConfiguration _configuration;
 
         public Bootstrapper()
         {
@@ -31,11 +30,7 @@ namespace CashRegister.WPF
 
             #region Configuration
 
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            _configuration = builder.Build();
-            _container.Instance(_configuration);
+            _container.Handler<IConfiguration>(_ => ConfigurationFactory.GetConfiguration());
 
             #endregion
 
@@ -45,7 +40,7 @@ namespace CashRegister.WPF
             {
                 var configuration = x.GetInstance<IConfiguration>();
                 var connection = configuration.GetConnectionString("DefaultConnection");
-                
+
                 var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
                 var options = optionsBuilder.UseSqlite(connection).Options;
                 var context = new AppDbContext(options);
@@ -59,7 +54,7 @@ namespace CashRegister.WPF
             _container.Singleton<IMapperProvider, DomainToServiceMapper>();
 
             #endregion
-            
+
             #region DI
 
             _container.Singleton<IWindowManager, WindowManager>();
