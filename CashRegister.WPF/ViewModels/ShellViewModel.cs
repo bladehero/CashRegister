@@ -22,7 +22,11 @@ namespace CashRegister.WPF.ViewModels
 
         protected override async Task OnActivateAsync(CancellationToken cancellationToken)
         {
-            _loginViewModel.Logged += () => ActivateItemAsync(_sessionViewModel, cancellationToken);
+            _loginViewModel.Logged += x =>
+            {
+                _sessionViewModel.User = x;
+                return ActivateItemAsync(_sessionViewModel, cancellationToken);
+            };
 
             await base.OnActivateAsync(cancellationToken);
         }

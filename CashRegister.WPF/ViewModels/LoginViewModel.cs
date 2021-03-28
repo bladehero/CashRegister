@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using CashRegister.Interfaces;
+using CashRegister.Models.Services;
 
 namespace CashRegister.WPF.ViewModels
 {
@@ -13,22 +14,23 @@ namespace CashRegister.WPF.ViewModels
             _userStorage = userStorage;
         }
 
-        public event Func<Task> Logged;
+        public event Func<UserSM, Task> Logged;
 
-        public bool CanLogin(string username, string password)
+        public bool CanLogin(string user, string password)
         {
-            return !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password);
+            return !string.IsNullOrEmpty(user) && !string.IsNullOrEmpty(password);
         }
 
         public async void Login(string user, string password)
         {
-            if (_userStorage.GetUserByCredentials(user, password) is null)
-                return;
-
             if (Logged is null)
                 return;
 
-            await Logged();
+            var userSm = _userStorage.GetUserByCredentials(user, password);
+            if (userSm is null)
+                return;
+
+            await Logged(userSm);
         }
     }
 }

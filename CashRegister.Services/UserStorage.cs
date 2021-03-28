@@ -20,6 +20,18 @@ namespace CashRegister.Services
             _users = configuration.GetSection("Users").Get<List<User>>();
         }
 
+        public UserSM GetUserByGuid(Guid guid)
+        {
+            var user = _users.FirstOrDefault(x => x.Guid == guid);
+            var mapped = _mapper.Map<UserSM>(user);
+            return mapped;
+        }
+        
+        public UserSM GetUserByGuid(string guidString)
+        {
+            return !Guid.TryParse(guidString, out var guid) ? default : GetUserByGuid(guid);
+        }
+        
         public UserSM GetUserByCredentials(string userName, string password)
         {
             if (string.IsNullOrWhiteSpace(userName))

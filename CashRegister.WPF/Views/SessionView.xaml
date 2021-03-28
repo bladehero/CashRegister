@@ -4,9 +4,66 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CashRegister.WPF.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:rules="clr-namespace:CashRegister.WPF.Validation.Rules"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Label Content="SessionView"></Label>
+        <Grid.Resources>
+            <Thickness x:Key="CellMargin">0,7</Thickness>
+        </Grid.Resources>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Column 1 -->
+
+        <!-- Row 1 -->
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            Orientation="Horizontal">
+            <TextBlock
+                Text="User: "
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+            <TextBlock
+                x:Name="User_UserName"
+                Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+        </StackPanel>
+
+        <!-- Row 2 -->
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="1"
+            x:Name="Balance"
+            materialDesign:HintAssist.Hint="Initial Balance"
+            Margin="{StaticResource CellMargin}"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+            materialDesign:TextFieldAssist.HasClearButton="True">
+            <Binding Path="Balance" UpdateSourceTrigger="PropertyChanged">
+                <Binding.ValidationRules>
+                    <rules:IsDecimalValidationRule ValidatesOnTargetUpdated="True" />
+                </Binding.ValidationRules>
+            </Binding>
+        </TextBox>
+
+        <!-- Row 3 -->
+        <Button
+            Grid.Row="3"
+            Grid.Column="1"
+            x:Name="Initialize"
+            Margin="{StaticResource CellMargin}"
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Content="Log In" />
     </Grid>
 </UserControl>
