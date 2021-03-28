@@ -7,7 +7,7 @@ namespace CashRegister.Models.Settings
 
         public bool IsIncluded(decimal value)
         {
-            return Start < value && value < End;
+            return Start <= value && value <= End;
         }
 
         public override string ToString()
