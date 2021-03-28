@@ -16,6 +16,8 @@ namespace CashRegister.WPF.ViewModels
         {
             _dbContext = dbContext;
             _balanceRange = configuration.GetRegisterSettings<BalanceRange>();
+            
+            Balance = _balanceRange.Start;
         }
 
         public UserSM User { get; set; }
