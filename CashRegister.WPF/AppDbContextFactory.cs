@@ -1,4 +1,3 @@
-using System.IO;
 using CashRegister.Data;
 using CashRegister.WPF.Extensions;
 using Microsoft.EntityFrameworkCore;

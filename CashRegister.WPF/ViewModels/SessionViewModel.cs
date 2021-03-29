@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using CashRegister.Interfaces;
 using CashRegister.Models.Services;
 using CashRegister.Models.Settings;
@@ -9,12 +8,12 @@ namespace CashRegister.WPF.ViewModels
 {
     public class SessionViewModel : Caliburn.Micro.Screen
     {
-        private readonly IAppDbContext _dbContext;
+        private readonly ISessionRegister _sessionRegister;
         private readonly BalanceRange _balanceRange;
 
-        public SessionViewModel(IAppDbContext dbContext, IConfiguration configuration)
+        public SessionViewModel(IConfiguration configuration, ISessionRegister sessionRegister)
         {
-            _dbContext = dbContext;
+            _sessionRegister = sessionRegister;
             _balanceRange = configuration.GetRegisterSettings<BalanceRange>();
             
             Balance = _balanceRange.Start;
@@ -29,9 +28,9 @@ namespace CashRegister.WPF.ViewModels
             return balance.HasValue && _balanceRange.IsIncluded(balance.Value);
         }
         
-        public async void Initialize(decimal? balance)
+        public async void Initialize(decimal balance)
         {
-            await Task.CompletedTask;
+            await _sessionRegister.StartAsync(User?.UserName, balance);
         }
     }
 }

@@ -8,10 +8,12 @@ namespace CashRegister.WPF.ViewModels
     public class LoginViewModel : Caliburn.Micro.Screen
     {
         private readonly IUserStorage _userStorage;
+        private readonly ISessionRegister _sessionRegister;
 
-        public LoginViewModel(IUserStorage userStorage)
+        public LoginViewModel(IUserStorage userStorage, ISessionRegister sessionRegister)
         {
             _userStorage = userStorage;
+            _sessionRegister = sessionRegister;
         }
 
         public event Func<UserSM, Task> Logged;

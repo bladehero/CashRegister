@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
@@ -49,16 +47,12 @@ namespace CashRegister.WPF
 
             #endregion
 
-            #region Mappers
-
-            _container.Singleton<IMapperProvider, DomainToServiceMapper>();
-
-            #endregion
-
             #region DI
 
+            _container.Singleton<IMapperProvider, DomainToServiceMapper>();
             _container.Singleton<IWindowManager, WindowManager>();
             _container.PerRequest<IUserStorage, UserStorage>();
+            _container.PerRequest<ISessionRegister, SessionRegister>();
 
             #endregion
 

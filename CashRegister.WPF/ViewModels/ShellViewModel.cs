@@ -8,14 +8,17 @@ namespace CashRegister.WPF.ViewModels
     public class ShellViewModel : Conductor<object>
     {
         private readonly IWindowManager _windowManager;
+        private readonly ISessionRegister _sessionRegister;
         private readonly LoginViewModel _loginViewModel;
         private readonly SessionViewModel _sessionViewModel;
 
         public ShellViewModel(IWindowManager windowManager,
+            ISessionRegister sessionRegister,
             LoginViewModel loginViewModel,
             SessionViewModel sessionViewModel)
         {
             _windowManager = windowManager;
+            _sessionRegister = sessionRegister;
             _loginViewModel = loginViewModel;
             _sessionViewModel = sessionViewModel;
         }
@@ -24,8 +27,18 @@ namespace CashRegister.WPF.ViewModels
         {
             _loginViewModel.Logged += x =>
             {
-                _sessionViewModel.User = x;
-                return ActivateItemAsync(_sessionViewModel, cancellationToken);
+                if (_sessionRegister.HasCurrent == false)
+                {
+                    _sessionViewModel.User = x;
+                    return ActivateItemAsync(_sessionViewModel, cancellationToken);
+                }
+
+                if (_sessionRegister.Current.UserName == x.UserName)
+                {
+                    return ActivateItemAsync(null, cancellationToken);
+                }
+
+                return Task.CompletedTask;
             };
 
             await base.OnActivateAsync(cancellationToken);

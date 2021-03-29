@@ -26,12 +26,12 @@ namespace CashRegister.Services
             var mapped = _mapper.Map<UserSM>(user);
             return mapped;
         }
-        
+
         public UserSM GetUserByGuid(string guidString)
         {
             return !Guid.TryParse(guidString, out var guid) ? default : GetUserByGuid(guid);
         }
-        
+
         public UserSM GetUserByCredentials(string userName, string password)
         {
             if (string.IsNullOrWhiteSpace(userName))
@@ -43,6 +43,14 @@ namespace CashRegister.Services
 
             var mapped = _mapper.Map<UserSM>(user);
             return mapped;
+        }
+
+        public bool Exists(string userName)
+        {
+            if (string.IsNullOrWhiteSpace(userName))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(userName));
+
+            return _users.Any(x => x.UserName == userName);
         }
     }
 }

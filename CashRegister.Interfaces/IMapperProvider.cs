@@ -2,7 +2,7 @@ using AutoMapper;
 
 namespace CashRegister.Interfaces
 {
-    public interface IMapperProvider
+    public interface IMapperProvider : IServiceBase
     {
         IMapper Mapper { get; }
     }
