@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CashRegister.Data
 {
-    public class AppDbContext : DbContext, IAppDbContext
+    public sealed class AppDbContext : DbContext, IAppDbContext
     {
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -15,6 +15,7 @@ namespace CashRegister.Data
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreated();
         }
     }
 }

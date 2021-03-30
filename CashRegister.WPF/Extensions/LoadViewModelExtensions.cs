@@ -12,9 +12,10 @@ namespace CashRegister.WPF.Extensions
                 .Where(x => x.Namespace?.Contains($"ViewModels") == true
                             && x.FullName?.EndsWith("ViewModel") == true)
                 .ToList();
+            
             foreach (var viewModel in viewModels)
             {
-                container.RegisterPerRequest(viewModel, viewModel.Name, viewModel);
+                container.RegisterSingleton(viewModel, viewModel.Name, viewModel);
             }
         }
     }

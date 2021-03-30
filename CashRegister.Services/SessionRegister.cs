@@ -17,10 +17,10 @@ namespace CashRegister.Services
         private readonly IMapper _mapper;
         private readonly IUserStorage _userStorage;
 
-        public SessionRegister(IAppDbContext dbContext, IMapper mapper, IUserStorage userStorage)
+        public SessionRegister(IAppDbContext dbContext, IMapperProvider mapperProvider, IUserStorage userStorage)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
+            _mapper = mapperProvider.Mapper;
             _userStorage = userStorage;
         }
 
@@ -42,7 +42,7 @@ namespace CashRegister.Services
             }
         }
 
-        public Task StartAsync(string user, decimal balance, CancellationToken cancellationToken = default)
+        public async Task StartAsync(string user, decimal balance, CancellationToken cancellationToken = default)
         {
             if (_userStorage.Exists(user) == false)
             {
@@ -60,7 +60,8 @@ namespace CashRegister.Services
                 InitialBalance = balance,
                 UserName = user
             };
-            return _dbContext.Sessions.AddAsync(session, cancellationToken).AsTask();
+            await _dbContext.Sessions.AddAsync(session, cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public Task FinishAsync(CancellationToken cancellationToken = default)

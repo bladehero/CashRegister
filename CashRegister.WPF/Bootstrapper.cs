@@ -58,10 +58,10 @@ namespace CashRegister.WPF
 
             #region ViewModels
 
-            _container.LoadViewModels(Assembly.GetExecutingAssembly());
             _container.RegisterShellProvider();
+            _container.LoadViewModels(Assembly.GetExecutingAssembly());
 
-            #endregion
+            #endregion 
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
