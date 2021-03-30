@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Threading;
 using Caliburn.Micro;
 using CashRegister.Data;
 using CashRegister.Interfaces;
@@ -82,6 +83,13 @@ namespace CashRegister.WPF
         protected override void BuildUp(object instance)
         {
             _container.BuildUp(instance);
+        }
+
+        protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            var windowManager = _container.GetInstance<IWindowManager>();
+            var shell = _container.GetInstance<ShellViewModel>();
+            windowManager.ShowPopupAsync(shell);
         }
     }
 }
