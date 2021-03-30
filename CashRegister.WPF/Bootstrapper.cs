@@ -59,6 +59,7 @@ namespace CashRegister.WPF
             #region ViewModels
 
             _container.LoadViewModels(Assembly.GetExecutingAssembly());
+            _container.RegisterShellProvider();
 
             #endregion
         }

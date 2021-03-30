@@ -2,10 +2,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using CashRegister.Interfaces;
+using CashRegister.WPF.Interfaces;
 
 namespace CashRegister.WPF.ViewModels
 {
-    public class ShellViewModel : Conductor<object>
+    public class ShellViewModel : Conductor<object>, IShell
     {
         private readonly IWindowManager _windowManager;
         private readonly ISessionRegister _sessionRegister;
