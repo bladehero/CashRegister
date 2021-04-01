@@ -10,6 +10,10 @@ namespace CashRegister.Models.Services
         private readonly IEnumerable<OrderProductSM> _products;
         private int? _count = null;
 
+        public OrderSM()
+        {
+            _products = Array.Empty<OrderProductSM>();
+        }
         public OrderSM(IEnumerable<OrderProductSM> products)
         {
             _products = products;
