@@ -52,8 +52,11 @@ namespace CashRegister.WPF
 
             _container.Singleton<IMapperProvider, DomainToServiceMapper>();
             _container.Singleton<IWindowManager, WindowManager>();
-            _container.PerRequest<IUserStorage, UserStorage>();
+            _container.PerRequest<IOrderArchive, OrderArchive>();
+            _container.PerRequest<IProductRack, ProductRack>();
             _container.PerRequest<ISessionRegister, SessionRegister>();
+            _container.PerRequest<IShoppingCart, ShoppingCart>();
+            _container.PerRequest<IUserStorage, UserStorage>();
 
             #endregion
 
