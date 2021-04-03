@@ -22,9 +22,9 @@ namespace CashRegister.Services
             _mapper = mapperProvider.Mapper;
         }
 
-        public Task<OrderSM> CreateOrder()
+        public Task<OrderSM> CreateOrder(SessionSM session)
         {
-            return Task.FromResult(OrderFactory.EmptyOrder);
+            return Task.FromResult(OrderFactory.GetEmptyOrder(session));
         }
 
         public async Task<OrderSM> AddProduct(OrderSM order, string barcode, int quantity = 1)
@@ -59,7 +59,7 @@ namespace CashRegister.Services
                 orderProductSm.Quantity += quantity;
             }
 
-            var orderSm = new OrderSM(order.Append(orderProductSm));
+            var orderSm = new OrderSM(order.Session, order.Append(orderProductSm));
             orderProductSm.Order = orderSm;
             return orderSm;
         }
@@ -89,7 +89,7 @@ namespace CashRegister.Services
             }
 
             var products = order.Where(x => x.Product?.Id != productId);
-            return Task.FromResult(new OrderSM(products));
+            return Task.FromResult(new OrderSM(order.Session, products));
         }
 
         public async Task<bool> AcceptOrder(OrderSM order)
@@ -107,6 +107,6 @@ namespace CashRegister.Services
 
     internal class OrderFactory
     {
-        public static OrderSM EmptyOrder => new() {DateTime = DateTime.UtcNow};
+        public static OrderSM GetEmptyOrder(SessionSM session) => new(session) {DateTime = DateTime.UtcNow};
     }
 }

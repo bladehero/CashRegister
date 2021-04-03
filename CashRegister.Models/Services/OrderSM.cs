@@ -10,16 +10,19 @@ namespace CashRegister.Models.Services
         private readonly IEnumerable<OrderProductSM> _products;
         private int? _count = null;
 
-        public OrderSM()
+        public OrderSM(SessionSM session)
         {
+            Session = session;
             _products = Array.Empty<OrderProductSM>();
         }
-        public OrderSM(IEnumerable<OrderProductSM> products)
+        public OrderSM(SessionSM session, IEnumerable<OrderProductSM> products)
         {
+            Session = session;
             _products = products;
         }
 
         public int Id { get; set; }
+        public SessionSM Session { get; }
         public DateTime DateTime { get; set; } = DateTime.UtcNow;
 
         public int Count => _count ??= _products.Count();

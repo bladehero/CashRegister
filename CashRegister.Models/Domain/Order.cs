@@ -12,6 +12,7 @@ namespace CashRegister.Models.Domain
         
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
+        public Session Session { get; set; }
         public IList<OrderProduct> OrderProducts { get; set; }
     }
 }
