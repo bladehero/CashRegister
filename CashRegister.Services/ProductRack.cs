@@ -17,7 +17,7 @@ namespace CashRegister.Services
             _mapper = mapperProvider.Mapper;
         }
 
-        public async Task<ProductSM> Get(string barcode)
+        public async Task<ProductSM> GetAsync(string barcode)
         {
             var query = _dbContext.Products.Include(x => x.Barcode);
             var product = await query.SingleOrDefaultAsync(x => x.Barcode.Value == barcode);

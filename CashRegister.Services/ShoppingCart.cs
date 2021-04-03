@@ -22,12 +22,12 @@ namespace CashRegister.Services
             _mapper = mapperProvider.Mapper;
         }
 
-        public Task<OrderSM> CreateOrder(SessionSM session)
+        public Task<OrderSM> CreateOrderAsync(SessionSM session)
         {
             return Task.FromResult(OrderFactory.GetEmptyOrder(session));
         }
 
-        public async Task<OrderSM> AddProduct(OrderSM order, string barcode, int quantity = 1)
+        public async Task<OrderSM> AddProductAsync(OrderSM order, string barcode, int quantity = 1)
         {
             if (order == null)
             {
@@ -48,7 +48,7 @@ namespace CashRegister.Services
 
             if (orderProductSm is null)
             {
-                var productSm = await _productRack.Get(barcode);
+                var productSm = await _productRack.GetAsync(barcode);
                 orderProductSm = new OrderProductSM(productSm)
                 {
                     Quantity = quantity
@@ -64,7 +64,7 @@ namespace CashRegister.Services
             return orderSm;
         }
 
-        public Task<OrderSM> ChangeQuantity(OrderSM order, int productId, int quantity)
+        public Task<OrderSM> ChangeQuantityAsync(OrderSM order, int productId, int quantity)
         {
             if (order == null)
             {
@@ -81,7 +81,7 @@ namespace CashRegister.Services
             return Task.FromResult(order);
         }
 
-        public Task<OrderSM> RemoveProduct(OrderSM order, int productId)
+        public Task<OrderSM> RemoveProductAsync(OrderSM order, int productId)
         {
             if (order == null)
             {
@@ -92,7 +92,7 @@ namespace CashRegister.Services
             return Task.FromResult(new OrderSM(order.Session, products));
         }
 
-        public async Task<bool> AcceptOrder(OrderSM order)
+        public async Task<bool> AcceptOrderAsync(OrderSM order)
         {
             if (order == null)
             {

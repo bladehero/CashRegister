@@ -3,12 +3,12 @@ using CashRegister.Models.Services;
 
 namespace CashRegister.Interfaces
 {
-    public interface IShoppingCart
+    public interface IShoppingCart : IServiceBase
     {
-        Task<OrderSM> CreateOrder(SessionSM session);
-        Task<OrderSM> AddProduct(OrderSM order, string barcode, int quantity = 1);
-        Task<OrderSM> ChangeQuantity(OrderSM order, int productId, int quantity);
-        Task<OrderSM> RemoveProduct(OrderSM order, int productId);
-        Task<bool> AcceptOrder(OrderSM order);
+        Task<OrderSM> CreateOrderAsync(SessionSM session);
+        Task<OrderSM> AddProductAsync(OrderSM order, string barcode, int quantity = 1);
+        Task<OrderSM> ChangeQuantityAsync(OrderSM order, int productId, int quantity);
+        Task<OrderSM> RemoveProductAsync(OrderSM order, int productId);
+        Task<bool> AcceptOrderAsync(OrderSM order);
     }
 }

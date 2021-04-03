@@ -3,8 +3,8 @@ using CashRegister.Models.Services;
 
 namespace CashRegister.Interfaces
 {
-    public interface IProductRack
+    public interface IProductRack : IServiceBase
     {
-        Task<ProductSM> Get(string barcode);
+        Task<ProductSM> GetAsync(string barcode);
     }
 }
