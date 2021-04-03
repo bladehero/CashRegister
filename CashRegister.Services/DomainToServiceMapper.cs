@@ -13,8 +13,18 @@ namespace CashRegister.Services
         {
             _configurationProvider = new MapperConfiguration(config =>
             {
-                config.CreateMap<User, UserSM>();
-                config.CreateMap<Session, SessionSM>();
+                config.CreateMap<User, UserSM>().ReverseMap();
+                config.CreateMap<Session, SessionSM>().ReverseMap();
+
+                config.CreateMap<ProductSM, Product>().AfterMap((sm, m) =>
+                {
+                    sm.Barcode = m.Barcode?.Value;
+                    sm.PicturePath = m.Picture?.Path;
+                });
+
+                config.CreateMap<OrderProduct, OrderProductSM>().ReverseMap();
+
+                config.CreateMap<Order, OrderSM>().ReverseMap();
             });
         }
 

@@ -20,7 +20,7 @@ namespace CashRegister.Models.Services
         }
 
         public int Id { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = DateTime.UtcNow;
 
         public int Count => _count ??= _products.Count();
         public decimal Sum => _products.Sum(x => x.Quantity * x.Product.Price);
