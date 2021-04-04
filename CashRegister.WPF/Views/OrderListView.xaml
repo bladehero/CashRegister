@@ -132,6 +132,7 @@
                     x:Name="DetailsIsVisible">
                     <Button
                         Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        x:Name="Details"
                         Margin="3 0">
                         <materialDesign:PackIcon
                             Kind="Menu"

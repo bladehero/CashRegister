@@ -14,6 +14,7 @@ namespace CashRegister.WPF.ViewModels
             _order = order;
         }
 
+        public OrderSM Order => _order;
         public int OrderId => _order.Id;
         public string UserName => _order.Session.UserName;
         public string DateTime => _order.DateTime.ToString("dd MMMM yyyy, hh:mm");

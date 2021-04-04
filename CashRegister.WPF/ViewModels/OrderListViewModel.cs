@@ -12,6 +12,7 @@ namespace CashRegister.WPF.ViewModels
     public class OrderListViewModel : Screen
     {
         private readonly ISessionRegister _sessionRegister;
+        private readonly IShellProvider _shellProvider;
         private readonly IOrderArchive _orderArchive;
         private readonly CurrencySettings _currencySettings;
         private OrderListRowViewModel _selectedOrder;
@@ -24,10 +25,12 @@ namespace CashRegister.WPF.ViewModels
         }
 
         public OrderListViewModel(ISessionRegister sessionRegister,
+            IShellProvider shellProvider,
             IOrderArchive orderArchive,
             IOptions<CurrencySettings> currencyOptions) : this()
         {
             _sessionRegister = sessionRegister;
+            _shellProvider = shellProvider;
             _orderArchive = orderArchive;
             _currencySettings = currencyOptions.Value;
         }
@@ -54,7 +57,13 @@ namespace CashRegister.WPF.ViewModels
         public bool AddIsVisible => true;
         public bool DetailsIsVisible => _selectedOrder is not null;
         public bool DeleteIsVisible => _selectedOrder is not null;
-        
+
+        public async void Details()
+        {
+            // var orderId = SelectedOrder.OrderId;
+            // await _shellProvider.GotoAsync<OrderDetailsViewModel>(x => x.OrderId = orderId);
+            await _shellProvider.GotoAsync<OrderDetailsViewModel>(x => x.Order = SelectedOrder.Order);
+        }
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken)
         {
@@ -67,7 +76,7 @@ namespace CashRegister.WPF.ViewModels
                         Enumerable.Range(0, x)
                             .Select(y => new OrderProductSM(new ProductSM
                             {
-                                Barcode = new string(y.ToString()[0], 10),
+                                Barcode = new string(y.ToString()[0], 12),
                                 Name = $"{nameof(OrderProductSM)}_{y}",
                                 Price = y * y,
                                 Id = y,
