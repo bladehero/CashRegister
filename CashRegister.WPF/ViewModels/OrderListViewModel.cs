@@ -14,6 +14,7 @@ namespace CashRegister.WPF.ViewModels
         private readonly ISessionRegister _sessionRegister;
         private readonly IOrderArchive _orderArchive;
         private readonly CurrencySettings _currencySettings;
+        private OrderListRowViewModel _selectedOrder;
 
         private OrderListViewModel()
         {
@@ -31,10 +32,29 @@ namespace CashRegister.WPF.ViewModels
             _currencySettings = currencyOptions.Value;
         }
 
-        public BindableCollection<OrderListRowViewModel> Orders { get; set; }
+        public BindableCollection<OrderListRowViewModel> Orders { get; }
+
+        public OrderListRowViewModel SelectedOrder
+        {
+            get => _selectedOrder;
+            set
+            {
+                Set(ref _selectedOrder, value);
+                NotifyOfPropertyChange(() => SelectedOrderIsVisible);
+                NotifyOfPropertyChange(() => DetailsIsVisible);
+                NotifyOfPropertyChange(() => DeleteIsVisible);
+            }
+        }
+
         public string Sum => $"{Orders.Sum(x => x.SumDecimal)}{_currencySettings.Symbol}";
         public string UserName => _sessionRegister.Current.UserName;
         public string StartedAt => _sessionRegister.Current.Started.ToString("dd MMMM yyyy, hh:mm");
+
+        public bool SelectedOrderIsVisible => _selectedOrder is not null;
+        public bool AddIsVisible => true;
+        public bool DetailsIsVisible => _selectedOrder is not null;
+        public bool DeleteIsVisible => _selectedOrder is not null;
+        
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken)
         {
@@ -56,7 +76,10 @@ namespace CashRegister.WPF.ViewModels
                             {
                                 Quantity = y
                             })
-                    );
+                    )
+                    {
+                        Id = x
+                    };
                     return new OrderListRowViewModel(_currencySettings, order);
                 });
 
