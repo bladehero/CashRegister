@@ -58,7 +58,9 @@ namespace CashRegister.WPF
 
             #region DI
 
+            _container.PerRequest<IBarcodeProducer, BarcodeProducer>();
             _container.Singleton<IMapperProvider, DomainToServiceMapper>();
+            _container.PerRequest<IImageProducer, ImageProducer>();
             _container.Singleton<IWindowManager, WindowManager>();
             _container.PerRequest<IOrderArchive, OrderArchive>();
             _container.PerRequest<IProductRack, ProductRack>();
