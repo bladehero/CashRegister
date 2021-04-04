@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using Caliburn.Micro;
 using CashRegister.Data;
 using CashRegister.Interfaces;
+using CashRegister.Models.Settings;
 using CashRegister.Services;
 using CashRegister.WPF.Extensions;
 using CashRegister.WPF.ViewModels;
@@ -30,6 +31,13 @@ namespace CashRegister.WPF
             #region Configuration
 
             _container.Handler<IConfiguration>(_ => ConfigurationFactory.GetConfiguration());
+
+            #region Options
+
+            _container.AddRegisterOption<BalanceRange>();
+            _container.AddRegisterOption<CurrencySettings>();
+
+            #endregion
 
             #endregion
 

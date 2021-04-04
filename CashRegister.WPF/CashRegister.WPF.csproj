@@ -36,6 +36,9 @@
         <EmbeddedResource Include="appsettings.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </EmbeddedResource>
+        <Resource Include="Icon.ico">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
     </ItemGroup>
 
 </Project>

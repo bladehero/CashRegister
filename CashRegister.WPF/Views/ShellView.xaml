@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:CashRegister.WPF.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow"
         WindowState="Maximized"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        Icon="../Icon.ico">
     <Grid>
         <ContentControl x:Name="ActiveItem" Margin="5" />
     </Grid>

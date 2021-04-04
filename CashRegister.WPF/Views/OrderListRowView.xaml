@@ -1,0 +1,147 @@
+<UserControl x:Class="CashRegister.WPF.Views.OrderListRowView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CashRegister.WPF.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <materialDesign:Card>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="5" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Row 1 -->
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="4"
+                BorderBrush="#ccc"
+                BorderThickness="0 0 0 1"
+                Margin="0 0 0 5">
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="Order #" />
+                    <TextBlock
+                        x:Name="OrderId"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        FontWeight="Bold" />
+                </StackPanel>
+            </Border>
+
+            <!-- Row 2 -->
+            <!-- Column 1 -->
+            <StackPanel
+                Grid.Row="2"
+                Grid.Column="1"
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="5 0"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                        Text="User:" />
+                    <TextBlock
+                        Margin="5 0"
+                        x:Name="UserName"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                        FontWeight="Bold" />
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="5 0"
+                        x:Name="DateTime"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                        FontWeight="Light" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Column 2 -->
+            <Border
+                BorderThickness="1 0 1 0"
+                BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                Grid.Row="2"
+                Grid.Column="2">
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="5 0"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                        Text="Items:" />
+                    <TextBlock
+                        Margin="5 0"
+                        x:Name="Count"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Column 3 -->
+            <Border
+                BorderThickness="0 0 1 0"
+                BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                Grid.Row="2"
+                Grid.Column="3">
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="5 0"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                        Text="Sum:" />
+                    <TextBlock
+                        Margin="5 0"
+                        x:Name="Sum"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                        FontWeight="Heavy" />
+                </StackPanel>
+            </Border>
+
+            <Border
+                Grid.Row="2"
+                Grid.Column="4">
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">
+                    <StackPanel>
+                        <Button>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Menu"
+                                                         Foreground="{StaticResource MaterialDesignToolForeground}" />
+                                <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}" Text="Details" />
+                            </StackPanel>
+                        </Button>
+                        <Separator />
+                        <Button>
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TrashCan" Foreground="#FF0000" />
+                                <TextBlock Style="{StaticResource MaterialDesignOverlineTextBlock}" Text="Delete" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </Border>
+
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

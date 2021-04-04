@@ -1,9 +1,7 @@
 using CashRegister.Interfaces;
 using CashRegister.Models.Services;
 using CashRegister.Models.Settings;
-using CashRegister.WPF.Extensions;
 using CashRegister.WPF.Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace CashRegister.WPF.ViewModels
 {
@@ -13,12 +11,14 @@ namespace CashRegister.WPF.ViewModels
         private readonly ISessionRegister _sessionRegister;
         private readonly BalanceRange _balanceRange;
 
-        public SessionViewModel(IConfiguration configuration, IShellProvider shellProvider, IUserStorage userStorage, ISessionRegister sessionRegister)
+        public SessionViewModel(IShellProvider shellProvider,
+            ISessionRegister sessionRegister,
+            IOptions<BalanceRange> balanceRangeOptions)
         {
             _shellProvider = shellProvider;
             _sessionRegister = sessionRegister;
-            _balanceRange = configuration.GetRegisterSettings<BalanceRange>();
-            
+            _balanceRange = balanceRangeOptions.Value;
+
             Balance = _balanceRange.Start;
         }
 
@@ -29,7 +29,7 @@ namespace CashRegister.WPF.ViewModels
         {
             return balance.HasValue && _balanceRange.IsIncluded(balance.Value);
         }
-        
+
         public async void Initialize(decimal balance)
         {
             await _sessionRegister.StartAsync(User?.UserName, balance);
