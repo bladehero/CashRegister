@@ -8,9 +8,9 @@ using CashRegister.Interfaces;
 using CashRegister.Models.Services;
 using CashRegister.Models.Settings;
 using CashRegister.WPF.Interfaces;
-using Screen = Caliburn.Micro.Screen;
+using CashRegister.WPF.ViewModels.Shared.Columns;
 
-namespace CashRegister.WPF.ViewModels
+namespace CashRegister.WPF.ViewModels.Orders.Details
 {
     public class OrderDetailsViewModel : Conductor<IOrderColumnView>
     {

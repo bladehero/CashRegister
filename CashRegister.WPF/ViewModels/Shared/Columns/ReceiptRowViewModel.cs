@@ -1,4 +1,4 @@
-namespace CashRegister.WPF.ViewModels
+namespace CashRegister.WPF.ViewModels.Shared.Columns
 {
     public class ReceiptRowViewModel
     {

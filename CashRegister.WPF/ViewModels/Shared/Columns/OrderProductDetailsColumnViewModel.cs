@@ -1,6 +1,6 @@
 using CashRegister.Models.Services;
 
-namespace CashRegister.WPF.ViewModels
+namespace CashRegister.WPF.ViewModels.Shared.Columns
 {
     public class OrderProductDetailsColumnViewModel
     {

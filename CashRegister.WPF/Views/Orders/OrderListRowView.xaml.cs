@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace CashRegister.WPF.Views
+namespace CashRegister.WPF.Views.Orders
 {
     public partial class OrderListRowView : UserControl
     {

@@ -1,5 +1,6 @@
 using CashRegister.Interfaces;
 using CashRegister.WPF.Interfaces;
+using CashRegister.WPF.ViewModels.Orders;
 
 namespace CashRegister.WPF.ViewModels
 {

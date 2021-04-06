@@ -6,8 +6,9 @@ using CashRegister.Interfaces;
 using CashRegister.Models.Services;
 using CashRegister.Models.Settings;
 using CashRegister.WPF.Interfaces;
+using CashRegister.WPF.ViewModels.Orders.Details;
 
-namespace CashRegister.WPF.ViewModels
+namespace CashRegister.WPF.ViewModels.Orders
 {
     public class OrderListViewModel : Screen
     {

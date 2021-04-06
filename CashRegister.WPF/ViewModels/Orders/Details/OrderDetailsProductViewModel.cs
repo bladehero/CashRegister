@@ -7,7 +7,7 @@ using CashRegister.Interfaces;
 using CashRegister.Models.Services;
 using CashRegister.Models.Settings;
 
-namespace CashRegister.WPF.ViewModels
+namespace CashRegister.WPF.ViewModels.Orders.Details
 {
     public class OrderDetailsProductViewModel
     {
