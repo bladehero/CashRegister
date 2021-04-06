@@ -24,7 +24,7 @@
 
         <StackPanel
             Grid.Column="2"
-            Margin="7 0"
+            Margin="7 0 0 0"
             Orientation="Horizontal">
             <StackPanel
                 VerticalAlignment="Center"
@@ -40,7 +40,7 @@
 
             <StackPanel
                 VerticalAlignment="Center"
-                Margin="0 0 7 0"
+                Margin="0 0 0 0"
                 x:Name="QuantityIsVisible"
                 Orientation="Horizontal">
                 <TextBlock
@@ -53,6 +53,7 @@
         </StackPanel>
 
         <StackPanel
+            Margin="7 0 0 0"
             Grid.Column="3"
             VerticalAlignment="Center"
             x:Name="TotalPriceIsVisible"

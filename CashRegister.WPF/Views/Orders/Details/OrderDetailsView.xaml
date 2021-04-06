@@ -16,10 +16,12 @@
 
         <Border
             DockPanel.Dock="Right"
-            BorderBrush="{StaticResource MaterialDesignToolBackground}"
-            BorderThickness="1"
+            Margin="0"
+            Padding="0"
             MaxWidth="400">
-            <Grid x:Name="Visual">
+            <Grid
+                x:Name="Visual"
+                Margin="0">
                 <ContentControl
                     x:Name="ActiveItem"
                     Margin="15 10" />
