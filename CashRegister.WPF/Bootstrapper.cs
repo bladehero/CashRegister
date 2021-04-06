@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using CashRegister.Data;
@@ -26,6 +28,8 @@ namespace CashRegister.WPF
 
         protected override void Configure()
         {
+            SetBindings();
+            
             _container = new SimpleContainer();
 
             #region Configuration
@@ -75,7 +79,8 @@ namespace CashRegister.WPF
             _container.RegisterShellProvider();
             _container.LoadViewModels(Assembly.GetExecutingAssembly());
 
-            #endregion 
+            #endregion
+
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
@@ -103,6 +108,20 @@ namespace CashRegister.WPF
             var windowManager = _container.GetInstance<IWindowManager>();
             var shell = _container.GetInstance<ShellViewModel>();
             windowManager.ShowPopupAsync(shell);
+        }
+
+        private static void SetBindings()
+        {
+            MessageBinder.SpecialValues.Add("$visual", ctx =>
+            {
+                var visual = (Visual)null;
+                if ((ctx.View as ContentControl)?.Content is DependencyObject dependencyObject)
+                {
+                    visual = dependencyObject.FindChild<Visual>(nameof(Visual));
+                }
+                
+                return visual;
+            });
         }
     }
 }

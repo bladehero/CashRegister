@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Media;
@@ -24,6 +23,8 @@ namespace CashRegister.WPF.ViewModels
             _barcodeProducer = barcodeProducer;
             _currencySettings = currencySettings;
         }
+
+        public OrderProductSM OrderProduct => _orderProduct;
 
         public ImageSource Barcode
         {
