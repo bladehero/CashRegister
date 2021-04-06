@@ -4,25 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" 
+             d:DesignWidth="300"
+             Width="300"
+             MaxWidth="300">
     <StackPanel>
         <Image
-            Source="../../Icon.ico"
+            MaxHeight="100"
+            Source="../../../Resources/Logo.png"
             HorizontalAlignment="Center" />
         
         <TextBlock
-            Style="{StaticResource MaterialDesignHeadline2TextBlock}"
+            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
             HorizontalAlignment="Center"
             Text="CashRegister" />
         
         <ListView
-            HorizontalContentAlignment="Stretch"
-            Padding="7"
+            HorizontalContentAlignment="Center"
             x:Name="Rows">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}" />
             </ListBox.ItemContainerStyle>
         </ListView>
+        
+        <Separator Background="{StaticResource MaterialDesignToolBackground}"/>
         
         <Grid>
             <Grid.ColumnDefinitions>
@@ -37,11 +42,11 @@
                 Grid.Column="1"
                 Orientation="Horizontal">
                 <TextBlock
-                    Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"
                     FontWeight="DemiBold"
                     x:Name="Sum" />   
                 <TextBlock
-                    Style="{StaticResource MaterialDesignOverlineTextBlock}"
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"
                     x:Name="Currency" />   
             </StackPanel>   
         </Grid>

@@ -14,14 +14,17 @@
             <system:Double x:Key="IconSize">24</system:Double>
         </DockPanel.Resources>
 
-        <Grid 
+        <Border
             DockPanel.Dock="Right"
-            x:Name="Visual"
-            MaxWidth="300">
-            <ContentControl
-                x:Name="ActiveItem"
-                Margin="10" />
-        </Grid>
+            BorderBrush="{StaticResource MaterialDesignToolBackground}"
+            BorderThickness="1"
+            MaxWidth="400">
+            <Grid x:Name="Visual">
+                <ContentControl
+                    x:Name="ActiveItem"
+                    Margin="15 10" />
+            </Grid>
+        </Border>
 
         <Grid
             DockPanel.Dock="Bottom">
@@ -36,7 +39,7 @@
                 Orientation="Horizontal">
                 <Button
                     Style="{StaticResource MaterialDesignOutlinedButton}"
-                    x:Name="BackToOrders">
+                    x:Name="GoBack">
                     <StackPanel
                         Orientation="Horizontal">
                         <materialDesign:PackIcon

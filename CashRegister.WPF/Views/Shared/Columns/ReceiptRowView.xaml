@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             Width="280"
+             MaxWidth="280">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -14,13 +17,17 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Column="0"
+                   Margin="0 0 7 0"
                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                   TextWrapping="WrapWithOverflow"
                    x:Name="Name" />
 
         <StackPanel
             Grid.Column="2"
+            Margin="7 0"
             Orientation="Horizontal">
             <StackPanel
+                VerticalAlignment="Center"
                 Orientation="Horizontal">
                 <TextBlock
                     Style="{StaticResource MaterialDesignBody2TextBlock}"
@@ -32,6 +39,8 @@
             </StackPanel>
 
             <StackPanel
+                VerticalAlignment="Center"
+                Margin="0 0 7 0"
                 x:Name="QuantityIsVisible"
                 Orientation="Horizontal">
                 <TextBlock
@@ -45,6 +54,7 @@
 
         <StackPanel
             Grid.Column="3"
+            VerticalAlignment="Center"
             x:Name="TotalPriceIsVisible"
             Orientation="Horizontal">
 

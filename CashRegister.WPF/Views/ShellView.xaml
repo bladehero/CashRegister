@@ -7,7 +7,7 @@
         Title="MainWindow"
         WindowState="Maximized"
         ResizeMode="NoResize"
-        Icon="../Icon.ico">
+        Icon="../Resources/Icon.ico">
     <Grid>
         <ContentControl x:Name="ActiveItem" Margin="5" />
     </Grid>

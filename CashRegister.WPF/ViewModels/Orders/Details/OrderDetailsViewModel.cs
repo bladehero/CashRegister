@@ -56,6 +56,8 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 
         public decimal Sum => OrderProducts.Sum(x => x.Sum);
 
+        public bool ColumnIsVisible => ActiveItem is not null;
+        
         public async void GoBack()
         {
             await _shellProvider.GoBack();
@@ -73,14 +75,7 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 
             await CloseColumn();
         }
-
-        private Task CloseColumn() => DeactivateItemAsync(ActiveItem, true);
-
-        private Task OpenReceiptColumn(OrderSM order) =>
-            ActivateItemAsync(new ReceiptColumnViewModel(order, _currencySettings));
-
-        private Task OpenOrderProductDetailsColumn(ProductSM product) =>
-            ActivateItemAsync(new OrderProductDetailsColumnViewModel {Product = product});
+        
 
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)
         {
@@ -96,5 +91,18 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 
             await base.OnInitializeAsync(cancellationToken);
         }
+
+
+        #region Helpers
+
+        private Task CloseColumn() => DeactivateItemAsync(ActiveItem, true);
+
+        private Task OpenReceiptColumn(OrderSM order) =>
+            ActivateItemAsync(new ReceiptColumnViewModel(order, _currencySettings));
+
+        private Task OpenOrderProductDetailsColumn(ProductSM product) =>
+            ActivateItemAsync(new OrderProductDetailsColumnViewModel {Product = product});
+
+        #endregion
     }
 }
