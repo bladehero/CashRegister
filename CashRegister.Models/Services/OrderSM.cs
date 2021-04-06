@@ -26,7 +26,7 @@ namespace CashRegister.Models.Services
         public DateTime DateTime { get; set; } = DateTime.UtcNow;
 
         public int Count => _count ??= _products.Count();
-        public decimal Sum => _products.Sum(x => x.Quantity * x.Product.Price);
+        public decimal Sum => _products.Sum(x => x.TotalPrice);
 
         public IEnumerator<OrderProductSM> GetEnumerator() => _products.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => _products.GetEnumerator();

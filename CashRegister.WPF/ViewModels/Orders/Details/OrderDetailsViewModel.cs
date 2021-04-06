@@ -15,7 +15,7 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
     public class OrderDetailsViewModel : Conductor<IOrderColumnView>
     {
         private OrderDetailsProductViewModel _selectedOrderProduct;
-        
+
         private readonly ISessionRegister _sessionRegister;
         private readonly IShellProvider _shellProvider;
         private readonly IBarcodeProducer _barcodeProducer;
@@ -63,8 +63,8 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 
         public async void Receipt(Visual visual)
         {
-            await OpenReceiptColumn();
-            
+            await OpenReceiptColumn(Order);
+
             var printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
@@ -76,7 +76,8 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 
         private Task CloseColumn() => DeactivateItemAsync(ActiveItem, true);
 
-        private Task OpenReceiptColumn() => ActivateItemAsync(new ReceiptColumnViewModel());
+        private Task OpenReceiptColumn(OrderSM order) =>
+            ActivateItemAsync(new ReceiptColumnViewModel(order, _currencySettings));
 
         private Task OpenOrderProductDetailsColumn(ProductSM product) =>
             ActivateItemAsync(new OrderProductDetailsColumnViewModel {Product = product});

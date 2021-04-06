@@ -17,7 +17,7 @@
         <Grid 
             DockPanel.Dock="Right"
             x:Name="Visual"
-            Width="300">
+            MaxWidth="300">
             <ContentControl
                 x:Name="ActiveItem"
                 Margin="10" />

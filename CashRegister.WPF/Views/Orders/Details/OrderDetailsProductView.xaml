@@ -54,7 +54,7 @@
                         Text="{Binding Path=Currency}" />
                     <TextBlock
                         Style="{StaticResource MaterialDesignBody1TextBlock}"
-                        Text="×" />
+                        x:Name="MultiplicationSymbol" />
                     <TextBlock
                         x:Name="Quantity"
                         Style="{StaticResource MaterialDesignBody1TextBlock}"

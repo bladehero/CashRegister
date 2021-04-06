@@ -60,5 +60,6 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
         public string Currency => _currencySettings.Symbol;
         public decimal Price => _orderProduct.Product.Price;
         public decimal Sum => Quantity * Price;
+        public string MultiplicationSymbol => Globals.Constants.Symbols.Multiplication;
     }
 }

@@ -5,5 +5,56 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid />
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0"
+                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                   x:Name="Name" />
+
+        <StackPanel
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBlock
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                    x:Name="Price"
+                    FontWeight="Bold" />
+                <TextBlock
+                    Style="{StaticResource MaterialDesignBody2TextBlock}"
+                    Text="{Binding Path=Currency}" />
+            </StackPanel>
+
+            <StackPanel
+                x:Name="QuantityIsVisible"
+                Orientation="Horizontal">
+                <TextBlock
+                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                    x:Name="MultiplicationSymbol" />
+                <TextBlock
+                    Style="{StaticResource MaterialDesignBody1TextBlock}"
+                    x:Name="Quantity" />
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel
+            Grid.Column="3"
+            x:Name="TotalPriceIsVisible"
+            Orientation="Horizontal">
+
+            <TextBlock
+                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                x:Name="TotalPrice"
+                FontWeight="Bold" />
+            <TextBlock
+                Style="{StaticResource MaterialDesignBody2TextBlock}"
+                Text="{Binding Path=Currency}" />
+        </StackPanel>
+    </Grid>
 </UserControl>

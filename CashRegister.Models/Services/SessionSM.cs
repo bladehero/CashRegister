@@ -9,5 +9,8 @@ namespace CashRegister.Models.Services
         public decimal InitialBalance { get; set; }
         public DateTime Started { get; set; }
         public DateTime? Finished { get; set; }
+        
+        // TODO: Implement real name
+        public string FullName => UserName;
     }
 }
