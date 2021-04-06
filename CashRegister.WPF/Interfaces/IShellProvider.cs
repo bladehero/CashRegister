@@ -10,5 +10,6 @@ namespace CashRegister.WPF.Interfaces
         IShell Shell { get; }
         Task GotoAsync<T>(CancellationToken cancellationToken = default) where T : IScreen;
         Task GotoAsync<T>(Action<T> screenMutator, CancellationToken cancellationToken = default) where T : IScreen;
+        Task GoBack(CancellationToken cancellationToken = default);
     }
 }

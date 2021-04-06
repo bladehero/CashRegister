@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
@@ -16,8 +17,14 @@ namespace CashRegister.WPF.Extensions
 
         private class ShellProvider : IShellProvider
         {
+            private static readonly Stack<IScreen> _history;
             private readonly SimpleContainer _container;
             private IShell _shell;
+
+            static ShellProvider()
+            {
+                _history = new Stack<IScreen>();
+            }
 
             public ShellProvider(SimpleContainer container)
             {
@@ -30,15 +37,25 @@ namespace CashRegister.WPF.Extensions
             public Task GotoAsync<T>(CancellationToken cancellationToken = default) where T : IScreen
             {
                 var screen = _container.GetInstance<T>();
+                _history.Push(screen);
                 return Shell.ActivateItemAsync(screen, cancellationToken);
             }
-            public Task GotoAsync<T>(Action<T> screenMutator, CancellationToken cancellationToken = default) where T : IScreen
+
+            public Task GotoAsync<T>(Action<T> screenMutator, CancellationToken cancellationToken = default)
+                where T : IScreen
             {
                 if (screenMutator == null) throw new ArgumentNullException(nameof(screenMutator));
-                
+
                 var screen = _container.GetInstance<T>();
                 screenMutator(screen);
+                _history.Push(screen);
                 return Shell.ActivateItemAsync(screen, cancellationToken);
+            }
+
+            public Task GoBack(CancellationToken cancellationToken = default)
+            {
+                _history.Pop();
+                return Shell.ActivateItemAsync(_history.Peek(), cancellationToken);
             }
         }
     }
