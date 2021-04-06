@@ -14,18 +14,17 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 {
     public class OrderDetailsViewModel : Conductor<IOrderColumnView>
     {
+        private OrderDetailsProductViewModel _selectedOrderProduct;
+        
         private readonly ISessionRegister _sessionRegister;
         private readonly IShellProvider _shellProvider;
         private readonly IBarcodeProducer _barcodeProducer;
         private readonly CurrencySettings _currencySettings;
         private readonly IOrderArchive _orderArchive;
-        private OrderDetailsProductViewModel _selectedOrderProduct;
-        private BindableCollection<OrderDetailsProductViewModel> _orderProducts;
-        private BindableCollection<ReceiptRowViewModel> _receiptRows;
 
         private OrderDetailsViewModel()
         {
-            _orderProducts = new BindableCollection<OrderDetailsProductViewModel>();
+            OrderProducts = new BindableCollection<OrderDetailsProductViewModel>();
         }
 
         public OrderDetailsViewModel(ISessionRegister sessionRegister,
@@ -43,42 +42,45 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 
         // public int OrderId { get; set; }
         public OrderSM Order { get; set; }
-
-        public BindableCollection<OrderDetailsProductViewModel> OrderProducts => _orderProducts;
+        public BindableCollection<OrderDetailsProductViewModel> OrderProducts { get; set; }
 
         public OrderDetailsProductViewModel SelectedOrderProduct
         {
             get => _selectedOrderProduct;
             set
             {
-                Set(ref _selectedOrderProduct, value);
-                NotifyOfPropertyChange(() => DetailSpaceIsVisible);
+                _selectedOrderProduct = value;
+                OpenOrderProductDetailsColumn(value.OrderProduct.Product);
             }
         }
 
-        public bool DetailSpaceIsVisible => _selectedOrderProduct is not null && ReceiptIsVisible == false;
-        public bool ReceiptIsVisible { get; set; }
         public decimal Sum => OrderProducts.Sum(x => x.Sum);
 
-        public async void BackToOrders()
+        public async void GoBack()
         {
             await _shellProvider.GoBack();
         }
 
-        public void Receipt(Visual visual)
+        public async void Receipt(Visual visual)
         {
-            ReceiptIsVisible = true;
-            SelectedOrderProduct = null;
+            await OpenReceiptColumn();
             
             var printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
                 printDialog.PrintVisual(visual, "Invoice");
             }
-            
-            ReceiptIsVisible = false;
+
+            await CloseColumn();
         }
-        
+
+        private Task CloseColumn() => DeactivateItemAsync(ActiveItem, true);
+
+        private Task OpenReceiptColumn() => ActivateItemAsync(new ReceiptColumnViewModel());
+
+        private Task OpenOrderProductDetailsColumn(ProductSM product) =>
+            ActivateItemAsync(new OrderProductDetailsColumnViewModel {Product = product});
+
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)
         {
             // var order = await _orderArchive.GetOrderAsync(OrderId);
@@ -90,7 +92,7 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
             OrderProducts.Clear();
             OrderProducts.AddRange(orderProducts);
             NotifyOfPropertyChange(() => Sum);
-            
+
             await base.OnInitializeAsync(cancellationToken);
         }
     }

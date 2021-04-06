@@ -14,69 +14,13 @@
             <system:Double x:Key="IconSize">24</system:Double>
         </DockPanel.Resources>
 
-        <Grid
+        <Grid 
+            DockPanel.Dock="Right"
             x:Name="Visual"
-            DockPanel.Dock="Right"
             Width="300">
-            <ContentControl x:Name="ActiveItem" Margin="5" />
-        </Grid>
-
-        <Grid
-            VerticalAlignment="Stretch"
-            Background="White"
-            x:Name="DetailSpaceIsVisible"
-            DockPanel.Dock="Right"
-            Width="300">
-            <StackPanel
-                Margin="15,7">
-                <materialDesign:Card>
-                    <Image x:Name="SelectedOrderProduct_OrderProduct_Product_PicturePath" />
-                </materialDesign:Card>
-                <StackPanel
-                    Margin="0 5"
-                    Orientation="Horizontal">
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        Margin="0 0 5 0"
-                        Text="Product:" />
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        x:Name="SelectedOrderProduct_OrderProduct_Product_Name" />
-                </StackPanel>
-                <StackPanel
-                    Margin="0 5"
-                    Orientation="Horizontal">
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        Margin="0 0 5 0"
-                        Text="Price:" />
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        x:Name="SelectedOrderProduct_OrderProduct_Product_Price" />
-                </StackPanel>
-                <StackPanel
-                    Margin="0 5"
-                    Orientation="Horizontal">
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        Margin="0 0 5 0"
-                        Text="Id:" />
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        x:Name="SelectedOrderProduct_OrderProduct_Product_Id" />
-                </StackPanel>
-                <StackPanel
-                    Margin="0 5"
-                    Orientation="Horizontal">
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        Margin="0 0 5 0"
-                        Text="Barcode:" />
-                    <TextBlock
-                        Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                        x:Name="SelectedOrderProduct_OrderProduct_Product_Barcode" />
-                </StackPanel>
-            </StackPanel>
+            <ContentControl
+                x:Name="ActiveItem"
+                Margin="10" />
         </Grid>
 
         <Grid
