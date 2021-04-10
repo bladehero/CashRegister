@@ -49,6 +49,10 @@ namespace CashRegister.Services
             if (orderProductSm is null)
             {
                 var productSm = await _productRack.GetAsync(barcode);
+                if (productSm is null)
+                {
+                    return order;
+                }
                 orderProductSm = new OrderProductSM(productSm)
                 {
                     Quantity = quantity

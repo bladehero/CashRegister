@@ -118,6 +118,7 @@
                     x:Name="AddIsVisible">
                     <Button
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        x:Name="Add"
                         Margin="3 0">
                         <materialDesign:PackIcon
                             Kind="Plus"

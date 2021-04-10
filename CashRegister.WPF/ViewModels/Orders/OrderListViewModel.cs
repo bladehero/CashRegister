@@ -6,6 +6,7 @@ using CashRegister.Interfaces;
 using CashRegister.Models.Services;
 using CashRegister.Models.Settings;
 using CashRegister.WPF.Interfaces;
+using CashRegister.WPF.ViewModels.Orders.Creation;
 using CashRegister.WPF.ViewModels.Orders.Details;
 
 namespace CashRegister.WPF.ViewModels.Orders
@@ -59,6 +60,11 @@ namespace CashRegister.WPF.ViewModels.Orders
         public bool DetailsIsVisible => _selectedOrder is not null;
         public bool DeleteIsVisible => _selectedOrder is not null;
 
+        public async void Add()
+        {
+            await _shellProvider.GotoAsync<OrderCreationViewModel>();
+        }
+        
         public async void Details()
         {
             // var orderId = SelectedOrder.OrderId;
@@ -71,7 +77,7 @@ namespace CashRegister.WPF.ViewModels.Orders
             var orders = _orderArchive.GetOrders(_sessionRegister.Current);
             // var orderRows = orders.Select(x => new OrderListRowViewModel(_currencySettings, x));
             var orderRows =
-                Enumerable.Range(1, 10).Select(x =>
+                Enumerable.Range(1, 100).Select(x =>
                 {
                     var order = new OrderSM(_sessionRegister.Current,
                         Enumerable.Range(0, x)
