@@ -53,10 +53,7 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
         {
             get
             {
-                if (_orderProducts is null)
-                {
-                    _orderProducts = new BindableCollection<OrderCreationProductViewModel>(GetOrderProducts());
-                }
+                _orderProducts ??= new BindableCollection<OrderCreationProductViewModel>(GetOrderProducts());
 
                 _orderProducts.Clear();
                 _orderProducts.AddRange(GetOrderProducts());
@@ -66,13 +63,23 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
             }
         }
 
+        public bool DeleteProductIsVisible => SelectedOrderProduct is not null;
+
         public OrderCreationProductViewModel SelectedOrderProduct
         {
             get => _selectedOrderProduct;
             set
             {
                 _selectedOrderProduct = value;
-                OpenOrderProductDetailsColumn(value.OrderProduct.Product);
+                NotifyOfPropertyChange(() => DeleteProductIsVisible);
+                if (value is null)
+                {
+                    CloseColumn();
+                }
+                else
+                {
+                    OpenOrderProductDetailsColumn(value.OrderProduct.Product);
+                }
             }
         }
 
@@ -96,6 +103,11 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
             }
 
             await CloseColumn();
+        }
+
+        public async void DeleteProduct()
+        {
+            Order = await _shoppingCart.RemoveProductAsync(Order, SelectedOrderProduct.OrderProduct.Product.Id);
         }
 
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)

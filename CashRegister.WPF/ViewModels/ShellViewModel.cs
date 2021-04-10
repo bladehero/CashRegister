@@ -1,10 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using CashRegister.WPF.Attributes;
 using CashRegister.WPF.Interfaces;
 
 namespace CashRegister.WPF.ViewModels
 {
+    [LifetimeScope(LifetimeScope.Singletone)]
     public class ShellViewModel : Conductor<object>, IShell
     {
         private readonly IShellProvider _shellProvider;

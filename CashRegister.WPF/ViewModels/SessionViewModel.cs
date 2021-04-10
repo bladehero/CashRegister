@@ -1,11 +1,13 @@
 using CashRegister.Interfaces;
 using CashRegister.Models.Services;
 using CashRegister.Models.Settings;
+using CashRegister.WPF.Attributes;
 using CashRegister.WPF.Interfaces;
 using CashRegister.WPF.ViewModels.Orders;
 
 namespace CashRegister.WPF.ViewModels
 {
+    [LifetimeScope(LifetimeScope.Singletone)]
     public class SessionViewModel : Caliburn.Micro.Screen
     {
         private readonly IShellProvider _shellProvider;

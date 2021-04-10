@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Reflection;
 using Caliburn.Micro;
+using CashRegister.WPF.Attributes;
 
 namespace CashRegister.WPF.Extensions
 {
@@ -15,7 +16,16 @@ namespace CashRegister.WPF.Extensions
             
             foreach (var viewModel in viewModels)
             {
-                container.RegisterSingleton(viewModel, viewModel.Name, viewModel);
+                var lifetime = viewModel.GetCustomAttribute<LifetimeScopeAttribute>();
+                switch (lifetime?.LifetimeScope)
+                {
+                    case LifetimeScope.Singletone:
+                        container.RegisterSingleton(viewModel, viewModel.Name, viewModel);
+                        break;
+                    default:
+                        container.RegisterPerRequest(viewModel, viewModel.Name, viewModel);
+                        break;
+                }
             }
         }
     }

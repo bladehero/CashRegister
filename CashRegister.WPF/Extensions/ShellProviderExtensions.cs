@@ -31,7 +31,7 @@ namespace CashRegister.WPF.Extensions
                 _container = container;
             }
 
-            public IShell Shell => _shell ??= _container.GetInstance<ShellViewModel>();
+            public IShell Shell => _container.GetInstance<ShellViewModel>();
 
 
             public Task GotoAsync<T>(CancellationToken cancellationToken = default) where T : IScreen

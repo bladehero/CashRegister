@@ -70,6 +70,15 @@
                             Text="Receipt" />
                     </StackPanel>
                 </Button>
+                <Grid x:Name="DeleteProductIsVisible">
+                    <Button
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Foreground="Red"
+                        BorderBrush="DarkRed"
+                        x:Name="DeleteProduct">
+                        Delete
+                    </Button>
+                </Grid>
             </StackPanel>
 
             <StackPanel

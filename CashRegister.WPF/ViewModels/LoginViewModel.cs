@@ -1,9 +1,11 @@
 using CashRegister.Interfaces;
+using CashRegister.WPF.Attributes;
 using CashRegister.WPF.Interfaces;
 using CashRegister.WPF.ViewModels.Orders;
 
 namespace CashRegister.WPF.ViewModels
 {
+    [LifetimeScope(LifetimeScope.Singletone)]
     public class LoginViewModel : Caliburn.Micro.Screen
     {
         private readonly IUserStorage _userStorage;
