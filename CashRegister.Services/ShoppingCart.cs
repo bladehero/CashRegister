@@ -44,8 +44,8 @@ namespace CashRegister.Services
                 throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity should be more positive number.");
             }
 
+            OrderSM orderSm;
             var orderProductSm = order.FirstOrDefault(x => x.Product.Barcode == barcode);
-
             if (orderProductSm is null)
             {
                 var productSm = await _productRack.GetAsync(barcode);
@@ -53,17 +53,19 @@ namespace CashRegister.Services
                 {
                     return order;
                 }
+
                 orderProductSm = new OrderProductSM(productSm)
                 {
                     Quantity = quantity
                 };
+                orderSm = new OrderSM(order.Session, order.Append(orderProductSm));
             }
             else
             {
                 orderProductSm.Quantity += quantity;
+                orderSm = new OrderSM(order.Session, order);
             }
 
-            var orderSm = new OrderSM(order.Session, order.Append(orderProductSm));
             orderProductSm.Order = orderSm;
             return orderSm;
         }
@@ -74,7 +76,7 @@ namespace CashRegister.Services
             {
                 throw new ArgumentNullException(nameof(order));
             }
-            
+
             if (quantity < 1)
             {
                 throw new ArgumentOutOfRangeException(nameof(quantity), "Quantity should be more positive number.");
@@ -102,7 +104,7 @@ namespace CashRegister.Services
             {
                 throw new ArgumentNullException(nameof(order));
             }
-            
+
             var model = _mapper.Map<Order>(order);
             var entity = await _dbContext.Orders.AddAsync(model);
             return entity.State == EntityState.Added;

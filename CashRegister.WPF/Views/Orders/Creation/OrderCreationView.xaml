@@ -70,8 +70,10 @@
                             Text="Receipt" />
                     </StackPanel>
                 </Button>
-                <Grid x:Name="DeleteProductIsVisible">
+                <Grid 
+                    x:Name="DeleteProductIsVisible">
                     <Button
+                        Margin="7 0 0 0"
                         Style="{StaticResource MaterialDesignOutlinedButton}"
                         Foreground="Red"
                         BorderBrush="DarkRed"
@@ -79,6 +81,23 @@
                         Delete
                     </Button>
                 </Grid>
+                <Button
+                    Margin="7 0 0 0"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Foreground="LightGreen"
+                    BorderBrush="SeaGreen"
+                    x:Name="AddProduct">
+                    Add
+                </Button>
+                <Button
+                    HorizontalAlignment="Right"
+                    Margin="7 0 0 0"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Foreground="LightGreen"
+                    BorderBrush="SeaGreen"
+                    x:Name="AcceptOrder">
+                    Accept
+                </Button>
             </StackPanel>
 
             <StackPanel

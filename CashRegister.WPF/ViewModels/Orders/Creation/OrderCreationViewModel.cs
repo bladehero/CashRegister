@@ -18,6 +18,8 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
     {
         private OrderCreationProductViewModel _selectedOrderProduct;
         private readonly ISessionRegister _sessionRegister;
+        private readonly IProductRack _productRack;
+        private readonly IWindowManager _windowManager;
         private readonly IShoppingCart _shoppingCart;
         private readonly IShellProvider _shellProvider;
         private readonly IBarcodeProducer _barcodeProducer;
@@ -26,12 +28,16 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
         private BindableCollection<OrderCreationProductViewModel> _orderProducts;
 
         public OrderCreationViewModel(ISessionRegister sessionRegister,
+            IProductRack productRack,
+            IWindowManager windowManager,
             IShoppingCart shoppingCart,
             IShellProvider shellProvider,
             IBarcodeProducer barcodeProducer,
             IOptions<CurrencySettings> currencyOptions)
         {
             _sessionRegister = sessionRegister;
+            _productRack = productRack;
+            _windowManager = windowManager;
             _shoppingCart = shoppingCart;
             _shellProvider = shellProvider;
             _barcodeProducer = barcodeProducer;
@@ -105,9 +111,24 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
             await CloseColumn();
         }
 
+        public async void AddProduct()
+        {
+            var dialog = new ProductByBarcodeViewModel(_productRack);
+            var result = await _windowManager.ShowDialogAsync(dialog);
+            if (result.GetValueOrDefault())
+            {
+                Order = await _shoppingCart.AddProductAsync(Order, dialog.Product.Barcode);
+            }
+        }
+
         public async void DeleteProduct()
         {
             Order = await _shoppingCart.RemoveProductAsync(Order, SelectedOrderProduct.OrderProduct.Product.Id);
+        }
+
+        public async void AcceptOrder()
+        {
+            
         }
 
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)
