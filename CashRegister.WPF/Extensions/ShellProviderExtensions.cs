@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Caliburn.Micro;
+using CashRegister.WPF.Attributes;
 using CashRegister.WPF.Interfaces;
 using CashRegister.WPF.ViewModels;
 
@@ -55,7 +57,17 @@ namespace CashRegister.WPF.Extensions
             public Task GoBack(CancellationToken cancellationToken = default)
             {
                 _history.Pop();
-                return Shell.ActivateItemAsync(_history.Peek(), cancellationToken);
+                var screen = _history.Peek();
+                var screenType = screen.GetType();
+                switch (screenType.GetCustomAttribute<LifetimeScopeAttribute>()?.LifetimeScope)
+                {
+                    case LifetimeScope.Singletone:
+                        break;
+                    default:
+                        screen = _container.GetInstance(screenType, null) as IScreen;
+                        break;
+                }
+                return Shell.ActivateItemAsync(screen, cancellationToken);
             }
         }
     }
