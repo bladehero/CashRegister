@@ -135,8 +135,7 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)
         {
             var session = _sessionRegister.Current;
-            var order = await _shoppingCart.CreateOrderAsync(session);
-            Order = await _shoppingCart.AddProductAsync(order, "000000000001", 2);
+            Order = await _shoppingCart.CreateOrderAsync(session);
             await base.OnInitializeAsync(cancellationToken);
         }
 

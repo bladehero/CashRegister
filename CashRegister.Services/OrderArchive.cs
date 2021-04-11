@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,9 +23,22 @@ namespace CashRegister.Services
 
         public async Task<OrderSM> GetOrderAsync(int orderId)
         {
-            var order = await _dbContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
-            var orderSm = _mapper.Map<OrderSM>(order);
-            return orderSm;
+            var order = await _dbContext.Orders.Include(x => x.OrderProducts).ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Barcode).Include(x => x.OrderProducts).ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Picture).FirstOrDefaultAsync(x => x.Id == orderId);
+
+            var session = _mapper.Map<SessionSM>(_dbContext.Sessions.FirstOrDefault());
+            var orderProductSms = order.OrderProducts.Select(x =>
+            {
+                var orderProductSm = _mapper.Map<OrderProductSM>(x);
+                orderProductSm.Product = _mapper.Map<ProductSM>(x.Product);
+                return orderProductSm;
+            }).ToList();
+            return new OrderSM(session, orderProductSms)
+            {
+                Id = order.Id,
+                DateTime = order.DateTime
+            };
         }
 
         public IEnumerable<OrderSM> GetOrders(SessionSM session)
@@ -34,8 +48,23 @@ namespace CashRegister.Services
                 throw new ArgumentNullException(nameof(session));
             }
 
-            var orders = _dbContext.Orders.Where(x => x.Session.Id == session.Id);
-            var orderSms = _mapper.ProjectTo<OrderSM>(orders);
+            var orders = _dbContext.Orders.Include(x => x.OrderProducts).ThenInclude(x => x.Product)
+                .Where(x => x.Session.Id == session.Id)
+                .ToList();
+            var orderSms = orders.Select(x =>
+            {
+                var orderProductSms = x.OrderProducts.Select(x =>
+                {
+                    var orderProductSm = _mapper.Map<OrderProductSM>(x);
+                    orderProductSm.Product = _mapper.Map<ProductSM>(x.Product);
+                    return orderProductSm;
+                }).ToList();
+                return new OrderSM(session, orderProductSms)
+                {
+                    Id = x.Id,
+                    DateTime = x.DateTime
+                };
+            });
             return orderSms;
         }
     }

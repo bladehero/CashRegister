@@ -67,37 +67,14 @@ namespace CashRegister.WPF.ViewModels.Orders
         
         public async void Details()
         {
-            // var orderId = SelectedOrder.OrderId;
-            // await _shellProvider.GotoAsync<OrderDetailsViewModel>(x => x.OrderId = orderId);
-            await _shellProvider.GotoAsync<OrderDetailsViewModel>(x => x.Order = SelectedOrder.Order);
+            var orderId = SelectedOrder.OrderId;
+            await _shellProvider.GotoAsync<OrderDetailsViewModel>(x => x.OrderId = orderId);
         }
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken)
         {
             var orders = _orderArchive.GetOrders(_sessionRegister.Current);
-            // var orderRows = orders.Select(x => new OrderListRowViewModel(_currencySettings, x));
-            var orderRows =
-                Enumerable.Range(1, 100).Select(x =>
-                {
-                    var order = new OrderSM(_sessionRegister.Current,
-                        Enumerable.Range(0, x)
-                            .Select(y => new OrderProductSM(new ProductSM
-                            {
-                                Barcode = new string(y.ToString()[0], 12),
-                                Name = $"{nameof(OrderProductSM)}_{y}",
-                                Price = y * y,
-                                Id = y,
-                                PicturePath = @"C:\Users\nikit\Pictures\Saved Pictures\Wallpaper Nature.jpg"
-                            })
-                            {
-                                Quantity = y
-                            })
-                    )
-                    {
-                        Id = x
-                    };
-                    return new OrderListRowViewModel(_currencySettings, order);
-                });
+            var orderRows = orders.Select(x => new OrderListRowViewModel(_currencySettings, x));
 
             Orders.Clear();
             Orders.AddRange(orderRows);

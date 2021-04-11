@@ -40,7 +40,7 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
             _orderArchive = orderArchive;
         }
 
-        // public int OrderId { get; set; }
+        public int OrderId { get; set; }
         public OrderSM Order { get; set; }
         public BindableCollection<OrderDetailsProductViewModel> OrderProducts { get; set; }
 
@@ -79,9 +79,7 @@ namespace CashRegister.WPF.ViewModels.Orders.Details
 
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)
         {
-            // var order = await _orderArchive.GetOrderAsync(OrderId);
-            // var orderProducts =
-            //     order.Select(x => new OrderDetailsProductViewModel(x, _barcodeProducer, _currencySettings));
+            Order = await _orderArchive.GetOrderAsync(OrderId);
             var orderProducts =
                 Order.Select(x => new OrderDetailsProductViewModel(x, _barcodeProducer, _currencySettings));
 
