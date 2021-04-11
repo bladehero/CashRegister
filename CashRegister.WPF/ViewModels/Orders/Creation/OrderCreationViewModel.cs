@@ -128,7 +128,8 @@ namespace CashRegister.WPF.ViewModels.Orders.Creation
 
         public async void AcceptOrder()
         {
-            
+            var result = await _shoppingCart.AcceptOrderAsync(Order);
+            await _shellProvider.GoBack();
         }
 
         protected override async Task OnInitializeAsync(CancellationToken cancellationToken)

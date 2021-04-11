@@ -1,3 +1,4 @@
+using System.Linq;
 using AutoMapper;
 using CashRegister.Interfaces;
 using CashRegister.Models.Domain;
@@ -38,7 +39,16 @@ namespace CashRegister.Services
 
                 config.CreateMap<OrderProduct, OrderProductSM>().ReverseMap();
 
-                config.CreateMap<Order, OrderSM>().ReverseMap();
+                config.CreateMap<Order, OrderSM>().ReverseMap().AfterMap((sm, m) =>
+                {
+                    m.OrderProducts = sm.Select(x => new OrderProduct
+                    {
+                        Id = x.Id,
+                        Order = new Order {Id = x.Order.Id},
+                        Product = new Product {Id = x.Product.Id},
+                        Quantity = x.Quantity
+                    }).ToList();
+                });
             });
         }
 

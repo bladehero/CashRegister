@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using CashRegister.Interfaces;
@@ -98,16 +99,33 @@ namespace CashRegister.Services
             return Task.FromResult(new OrderSM(order.Session, products));
         }
 
-        public async Task<bool> AcceptOrderAsync(OrderSM order)
+        public async Task<bool> AcceptOrderAsync(OrderSM orderSm)
         {
-            if (order == null)
+            if (orderSm == null)
             {
-                throw new ArgumentNullException(nameof(order));
+                throw new ArgumentNullException(nameof(orderSm));
             }
 
-            var model = _mapper.Map<Order>(order);
-            var entity = await _dbContext.Orders.AddAsync(model);
-            return entity.State == EntityState.Added;
+            var session = await _dbContext.Sessions.FirstOrDefaultAsync(x => x.Id == orderSm.Session.Id);
+
+            var order = new Order
+            {
+                Session = session,
+                DateTime = orderSm.DateTime
+            };
+            var query = _dbContext.Products;
+            var products = orderSm.Join(query, x => x.Product.Id, x => x.Id, (o, p) => new OrderProduct
+            {
+                Order = order,
+                Product = p,
+                Quantity = o.Quantity
+            }).Where(x => x.Quantity > 0).ToList();
+
+            await _dbContext.Orders.AddAsync(order);
+            await _dbContext.OrderProducts.AddRangeAsync(products);
+
+            var count = await _dbContext.SaveChangesAsync(CancellationToken.None);
+            return count > 0;
         }
     }
 
