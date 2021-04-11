@@ -34,7 +34,7 @@
                 Margin="0 20"
                 Orientation="Horizontal">
                 <materialDesign:Card MaxHeight="75" VerticalAlignment="Center">
-                    <Image x:Name="Product_PicturePath" />
+                    <Image x:Name="Product_PictureFullPath" />
                 </materialDesign:Card>
                 <TextBlock
                     Margin="{StaticResource CellMargin}"

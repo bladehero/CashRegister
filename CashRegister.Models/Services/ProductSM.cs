@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace CashRegister.Models.Services
 {
     public class ProductSM
@@ -10,5 +12,6 @@ namespace CashRegister.Models.Services
         
         public int PictureId { get; set; }
         public string PicturePath { get; set; }
+        public string PictureFullPath => Path.Combine(Directory.GetCurrentDirectory(), "Images", PicturePath ?? string.Empty);
     }
 }

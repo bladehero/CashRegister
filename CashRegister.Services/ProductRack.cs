@@ -19,7 +19,7 @@ namespace CashRegister.Services
 
         public async Task<ProductSM> GetAsync(string barcode)
         {
-            var query = _dbContext.Products.Include(x => x.Barcode);
+            var query = _dbContext.Products.Include(x => x.Barcode).Include(x => x.Picture);
             var product = await query.SingleOrDefaultAsync(x => x.Barcode.Value == barcode);
             var productSm = _mapper.Map<ProductSM>(product);
             return productSm;
