@@ -21,7 +21,6 @@ namespace CashRegister.WPF.Extensions
         {
             private static readonly Stack<IScreen> _history;
             private readonly SimpleContainer _container;
-            private IShell _shell;
 
             static ShellProvider()
             {
