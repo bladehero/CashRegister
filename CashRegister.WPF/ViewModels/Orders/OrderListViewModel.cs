@@ -47,7 +47,6 @@ namespace CashRegister.WPF.ViewModels.Orders
                 Set(ref _selectedOrder, value);
                 NotifyOfPropertyChange(() => SelectedOrderIsVisible);
                 NotifyOfPropertyChange(() => DetailsIsVisible);
-                NotifyOfPropertyChange(() => DeleteIsVisible);
             }
         }
 
@@ -58,7 +57,6 @@ namespace CashRegister.WPF.ViewModels.Orders
         public bool SelectedOrderIsVisible => _selectedOrder is not null;
         public bool AddIsVisible => true;
         public bool DetailsIsVisible => _selectedOrder is not null;
-        public bool DeleteIsVisible => _selectedOrder is not null;
 
         public async void Add()
         {
@@ -69,6 +67,12 @@ namespace CashRegister.WPF.ViewModels.Orders
         {
             var orderId = SelectedOrder.OrderId;
             await _shellProvider.GotoAsync<OrderDetailsViewModel>(x => x.OrderId = orderId);
+        }
+
+        public async void FinishSession()
+        {
+            await _sessionRegister.FinishAsync();
+            await _shellProvider.GotoAsync<LoginViewModel>();
         }
 
         protected override Task OnInitializeAsync(CancellationToken cancellationToken)

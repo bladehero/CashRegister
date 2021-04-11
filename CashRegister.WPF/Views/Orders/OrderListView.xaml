@@ -140,13 +140,13 @@
                     </Button>
                 </Grid>
 
-                <Grid
-                    x:Name="DeleteIsVisible">
+                <Grid>
                     <Button
+                        x:Name="FinishSession"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                         Margin="3 0">
                         <materialDesign:PackIcon
-                            Kind="Delete"
+                            Kind="PowerOff"
                             Height="{StaticResource IconSize}"
                             Width="{StaticResource IconSize}" />
                     </Button>

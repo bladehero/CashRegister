@@ -8,6 +8,7 @@ using CashRegister.Models.Domain;
 using CashRegister.Models.Exceptions.SessionExceptions;
 using CashRegister.Models.Exceptions.UserStorageExceptions;
 using CashRegister.Models.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace CashRegister.Services
 {
@@ -48,12 +49,12 @@ namespace CashRegister.Services
             {
                 throw new NoUserDefinedException($"System has no user with specified username `{user}`.");
             }
-            
+
             if (Current is not null)
             {
                 throw new MultipleSessionOpenedException("Session is already opened.");
             }
-            
+
             var session = new Session
             {
                 Started = DateTime.UtcNow,
@@ -64,17 +65,18 @@ namespace CashRegister.Services
             await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public Task FinishAsync(CancellationToken cancellationToken = default)
+        public async Task FinishAsync(CancellationToken cancellationToken = default)
         {
             var current = Current;
-            
+
             if (Current is null)
             {
                 throw new ClosedSessionException("No opened session exists.");
             }
-            
-            current.Finished = DateTime.UtcNow;
-            return _dbContext.SaveChangesAsync(cancellationToken);
+
+            var session = await _dbContext.Sessions.FirstOrDefaultAsync(x => x.Id == current.Id, cancellationToken);
+            session.Finished = DateTime.UtcNow;
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }
